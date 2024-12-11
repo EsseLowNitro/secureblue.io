@@ -3,9 +3,10 @@
 set -o errexit -o nounset -o pipefail
 shopt -s dotglob extglob globstar
 
-if [[ ${GITHUB_ACTIONS:-false} != true ]]; then
-    source venv/bin/activate
-fi
+npm ci --ignore-scripts
+pip install --require-hashes --only-binary :all: -r requirements.txt
+
+source venv/bin/activate
 
 if [[ $# -eq 1 ]]; then
     fd=$1
@@ -20,10 +21,6 @@ if ! flock -n $fd; then
 fi
 
 export PATH="$PWD/node_modules/.bin:$PATH"
-
-# can use file:// to avoid network requests
-[[ -f releases-base ]] && RELEASES_BASE=$(cat releases-base)
-RELEASES_BASE=${RELEASES_BASE:-https://releases.grapheneos.org}
 
 rm -rf static-tmp
 cp -a static static-tmp
@@ -57,21 +54,6 @@ for file in static-tmp/**/*.css static-tmp/js/*.js static-tmp/**/!(bimi|favicon)
     replace+=";s@\[\[integrity|/${file#*/}\]\]@${sri_hash}@g"
     replace+=";s@\[\[path|/${file#*/}\]\]@/${dest#*/}@g"
 done
-sed -i "$replace" static-tmp/**/*.html nginx-tmp/nginx.conf nginx-tmp/snippets/preload.conf
-
-replace=
-devices=(comet komodo caiman tokay akita husky shiba felix tangorpro lynx cheetah panther bluejay raven oriole barbet redfin bramble sunfish coral flame)
-channels=(stable beta alpha)
-for device in ${devices[@]}; do
-    for channel in ${channels[@]}; do
-        metadata=$(curl -s $RELEASES_BASE/$device-$channel)
-        build_number=$(echo -n $metadata | cut -d ' ' -f 1)
-        replace+=";s@\[\[$device-$channel-BUILD_NUMBER\]\]@$build_number@g"
-    done
-done
-sed -i "$replace" static-tmp/releases.html
-
-gixy nginx-tmp/nginx.conf
 
 xmllint --noout static-tmp/**/*.@(html|svg|xml)
 java -jar node_modules/vnu-jar/build/dist/vnu.jar --errors-only static-tmp/**/*.html

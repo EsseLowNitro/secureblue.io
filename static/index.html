@@ -20,8 +20,8 @@
 
                 <div>
                     <h1><a href="#secureblue">secureblue</a></h1>
-                    <p>secureblue offers hardened operating system images and maintains the hardened-chromium project.</p>
-                    <a class="button" href="/install/">Install secureblue</a>
+                    <p>Offering hardened operating system images for desktops and servers, and the hardened-chromium project.</p>
+                    <a class="button" href="/install">Get secureblue</a>
                 </div>
 
                 <figure class="device-img">
@@ -31,17 +31,13 @@
 
             </div>
 
-            <div class="surface">
-                <div class="content break">
-                    <p>Get to know secureblue</p>
-                </div>
-            </div>
-
             <div class="content">
                 <section id="about">
                     <h2 class="start"><a href="#about">About</a></h2>
 
-                    <p>secureblue offers hardened operating system images for desktop and server use cases, generated with BlueBuild, using Fedora Atomic Desktop images and Fedora CoreOS images as a starting point for desktop and server use cases respectively. secureblue also maintains hardened-chromium, a privacy and security focused chromium fork for desktop Linux using Fedora's Chromium as a base and inspired by GrapheneOS's Vanadium and intended to be used with GrapheneOS's hardened_malloc as packaged and provided by secureblue. The project applies hardening with the following goals in mind:
+                    <p>secureblue offers hardened operaring system images generated with <a href="https://blue-build.org/">BlueBuild</a>, using <a href="https://fedoraproject.org/atomic-desktops/">Fedora Atomic Desktop</a>'s <a href="https://pagure.io/workstation-ostree-config">base images</a> as a starting point for desktop images and <a href="https://fedoraproject.org/coreos/">Fedora CoreOS</a> for <code>securecore</code> server images. The project also maintains hardened-chromium, a hardened fork inspired by GrapheneOS's Vanadiumm that uses Fedora's Chromium as a base, intended for use with hardened_malloc as packaged and provided in secureblue desktop images.</p>
+
+                    <p>The project applies hardening with the following goals in mind:</p>
                     <ul>
                         <li>Increase defenses against the exploitation of both known and unknown vulnerabilities;</li>
                         <li>Avoid sacrificing usability for most use cases where possible;</li>
@@ -54,13 +50,13 @@
                         <li>Changes that make secondary browser features opt-in instead of opt-out (for example, making the password manager and search suggestions opt-in);</li>
                         <li>Changes that disable opt-in metrics and data collection, so long as they have no security implications.</li>
                     </ul>
-                    <p>secureblue wholly avoids the following, making these out of scope:</p>
+                    <p>We wholly <em>avoid</em> the following, out of scope topics:</p>
                     <ul>
                         <li>Any novel functionality that is unrelated to security.</li>
                         <li>Anything related to "degoogling" chromium. For example, we will not be replacing hardened-chromium with Brave or ungoogled-chromium. Both of them make changes that sacrifice security for "privacy", such as enabling MV2;</li>
                     </ul>
 
-                    <h2 class="start"><a href="#hardening">Hardening</a></h2>
+                    <h2><a href="#hardening">Hardening</a></h2>
 
                     <ul>
                         <li>Installing and enabling <a href="https://github.com/GrapheneOS/hardened_malloc">hardened_malloc</a> globally, including for flatpaks. <sup><a href="https://github.com/rusty-snake/fedora-extras">Thanks to rusty-snake&#39;s spec</a></sup></li>
@@ -74,7 +70,7 @@
                         <li>Adds per-network MAC randomization</li>
                         <li>Blacklisting numerous unused kernel modules to reduce attack surface <sup><a href="https://github.com/secureblue/secureblue/blob/live/files/system/etc/modprobe.d/blacklist.conf">details</a></sup></li>
                         <li>Enabling only the <a href="https://flathub.org/apps/collection/verified/1">flathub-verified</a> remote by default</li>
-                        <li>Sets numerous hardening kernel arguments (Inspired by <a href="https://madaidans-insecurities.github.io/guides/linux-hardening.html">Madaidan&#39;s Hardening Guide</a>) <sup><a href="KARGS.md">details</a></sup></li>
+                        <li>Sets numerous hardening kernel arguments (Inspired by <a href="https://madaidans-insecurities.github.io/guides/linux-hardening.html">Madaidan&#39;s Hardening Guide</a>) <sup><a href="/kargs">details</a></sup></li>
                         <li>Require wheel user authentication via polkit for <code>rpm-ostree install</code> <sup><a href="https://github.com/rohanssrao/silverblue-privesc">why?</a></li>
                         <li>Brute force protection by locking user accounts for 24 hours after 50 failed login attempts, hardened password encryption and password quality suggestions</li>
                         <li>Installing usbguard and providing <code>ujust</code> commands to automatically configure it</li>
@@ -87,9 +83,18 @@
                         <li>Set all default container policies to <code>reject</code>, <code>signedBy</code>, or <code>sigstoreSigned</code></li>
                         <li>Disable a variety of services by default (including cups, geoclue, passim, and others)</li>
                         <li>Removal of the unmaintained and suid-root fuse2 by default</li>
-                        <li>(Non-userns variants) Disabling unprivileged user namespaces</li>
-                        <li>(Non-userns variants) Replacing bubblewrap with suid-root bubblewrap so flatpak can be used without unprivileged user namespaces</li>
+                        <li>Disabling unprivileged user namespaces by default for the unconfined domain and the container domain</li>
                     </ul>
+
+                    <h2><a href="#rationale">Rationale</a></h2>
+
+                    <p>Fedora is one of the few distributions that ships with selinux and associated tooling built-in and enabled by default, aside from being sufficiently private. This makes it advantageous as a starting point for building a hardened system. However, out of the box it's lacking hardening in numerous other areas. This project's goal is to improve on that significantly.</p>
+
+                    <p>For more info on BlueBuild, check out the <a href="https://blue-build.org/">BlueBuild homepage.</a></p>
+
+                    <h2><a href="#customization">Customization</a></h2>
+
+                    <p>If you want to add your own customizations on top of secureblue, you are advised strongly against forking. Instead, create a repo for your own image by using the <a href="https://github.com/blue-build/template">BlueBuild template</a>, then change your base-image to a secureblue image. This will allow you to apply your customizations to secureblue in a concise and maintainable way, without the need to constantly sync with upstream.</p>
                 </section>
             </div>
         </main>
