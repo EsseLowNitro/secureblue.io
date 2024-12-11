@@ -29,4 +29,6 @@
 
 secureblue and hardened-chromium are open source, collaboratively built projects; take a look at our
 GitHub repositories in https://github.com/secureblue/ for the OS, hardened-chromium and this website
-the ASCII art above was created from our icon with https://www.asciiart.eu/image-to-ascii in default
+
+the ASCII art above was created from our icon with https://www.asciiart.eu/image-to-ascii's defaults
+this webstie is based on the GrapheneOS website --> https://github.com/GrapheneOS/grapheneos.org/ :D
