@@ -26,11 +26,6 @@ cp -a static static-tmp
 
 ./process-templates static-tmp
 
-for file in static-tmp/**/*.@(json|webmanifest); do
-    json_verify < "$file" >/dev/null
-    json_reformat -m < "$file" | sponge "$file"
-done
-
 stylelint static-tmp/**/*.css
 find static-tmp -name '*.css' -exec csso {} -o {} \;
 
