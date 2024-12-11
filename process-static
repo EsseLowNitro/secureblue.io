@@ -25,9 +25,6 @@ export PATH="$PWD/node_modules/.bin:$PATH"
 [[ -f releases-base ]] && RELEASES_BASE=$(cat releases-base)
 RELEASES_BASE=${RELEASES_BASE:-https://releases.grapheneos.org}
 
-rm -rf nginx-tmp
-cp -a nginx nginx-tmp
-
 rm -rf static-tmp
 cp -a static static-tmp
 

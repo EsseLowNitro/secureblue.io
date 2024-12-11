@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Customization and contribution | secureblue</title>
+        {% include "meta-generics.html" %}
+        <meta name="description" content="How to create your secureblue-based image and guidelines for contribution."/>
+        <meta property="og:title" content="Customization and contribution | secureblue"/>
+        <meta property="og:description" content="How to create your secureblue-based image and guidelines for contribution."/>
+        <meta property="og:url" content="https://secureblue.io/customization"/>
+        <link rel="canonical" href="https://secureblue.io/customization/">
+        [[css|/main.css]]
+    </head>
+    <body>
+        {% with current_page="build" %}
+            {% include "header.html" %}
+        {% endwith %}
+        <main id="build">
+            <h1><a href="#customization">Customization</a></h1>
+
+            <p>Customization instructions.</p>
+
+            <h2><a href="#contributing">Contributing</a></h2>
+
+            <p>Contribution guidelines.</p>
+        </main>
+        {% include "footer.html" %}
+    </body>
+</html>

@@ -1,6 +1,3 @@
-/* use the standard Material Light theme to match GrapheneOS apps */
-/* https://android.googlesource.com/platform/frameworks/base/+/android-11.0.0_r32/core/res/res/values/colors_material.xml */
-
 html {
     height: -webkit-fill-available; /* replace with stretch when standardized */
 }
@@ -13,7 +10,7 @@ body {
     font-family: Roboto, sans-serif;
     line-height: 1.5;
     letter-spacing: 0.009375rem;
-    background-color: #fafafa; /* grey50 */
+    background-color: #ffffff;
     color: rgba(0 0 0 / 87%); /* 87% black */
     margin: 0;
     padding: 0;
@@ -145,7 +142,6 @@ var {
 #site-menu img {
     height: 1.8rem;
     width: 1.8rem;
-    filter: invert(100);
     vertical-align: middle;
     margin-right: 0.5rem;
 }
@@ -174,7 +170,7 @@ button, .button, .button:visited {
     font-size: 0.9em;
     font-weight: bold;
     letter-spacing: 0.0892857143em;
-    background-color: #0053a3; /* accent_device_default_light => system_accent1_600 */
+    background-color: #005c8a;
     border-radius: 20px;
     border: none;
     height: 40px;
@@ -303,7 +299,7 @@ main.normalize {
     position: relative;
 }
 
-.phone-logo-img {
+.laptop-logo-img {
     position: absolute;
     top: 48%;
     left: 50%;
@@ -498,11 +494,11 @@ details[open] summary {
         border-color: #222;
     }
 
-    .phone-img {
+    .laptop-img {
         filter: brightness(0.87);
     }
 
-    .phone-logo-img {
+    .laptop-logo-img {
         filter: invert(87%);
     }
 
