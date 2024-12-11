@@ -3,11 +3,9 @@
 set -o errexit -o nounset -o pipefail
 shopt -s dotglob extglob globstar
 
-npm ci --ignore-scripts
-
-pip install --require-hashes --only-binary :all: -r requirements.txt
-python3 -m venv --clear venv
-source venv/bin/activate
+if [[ ${GITHUB_ACTIONS:-false} != true ]]; then
+    source venv/bin/activate
+fi
 
 if [[ $# -eq 1 ]]; then
     fd=$1
