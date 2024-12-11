@@ -4,10 +4,14 @@ set -o errexit -o nounset -o pipefail
 shopt -s dotglob extglob globstar
 
 npm ci --ignore-scripts
-pip install --require-hashes --only-binary :all: -r requirements.txt
 
+<<<<<<< HEAD
+pip install --require-hashes --only-binary :all: -r requirements.txt
+python3 -m venv --clear venv
+=======
 mkdir website
 python -m venv website
+>>>>>>> 4ed8544c6c47c9266f22b28e4b542f0f953c8f7b
 source venv/bin/activate
 
 if [[ $# -eq 1 ]]; then
@@ -37,9 +41,6 @@ done
 stylelint static-tmp/**/*.css
 find static-tmp -name '*.css' -exec csso {} -o {} \;
 
-eslint static-tmp/**/!(fastboot.min.m|z-worker-pako.|pako_inflate.min.|)js
-find static-tmp -name '*.js' -exec terser --ecma 2022 --module -cmo {} {} \;
-
 replace=
 for file in static-tmp/**/*.css static-tmp/js/*.js static-tmp/**/!(bimi|favicon).svg; do
     hash=$(sha256sum "$file" | head -c 8)
@@ -66,14 +67,3 @@ find static-tmp -name '*.html' -exec html-minifier-terser --collapse-whitespace 
     --remove-attribute-quotes --remove-comments --remove-empty-attributes \
     --remove-redundant-attributes --remove-script-type-attributes \
     --remove-style-link-type-attributes --sort-attributes --sort-class-name {} -o {} \;
-
-./generate-feed
-
-for file in static-tmp/**/*.@(atom|xml); do
-    xmllint --noblanks "$file" --output "$file"
-done
-
-[[ -f indexnow-key.txt ]] && index_now_key="$(cat indexnow-key.txt)" && echo "$index_now_key" > "static-tmp/$index_now_key.txt"
-
-find static-tmp -regex '.+\.\(atom\|css\|html\|ico\|js\|json\|mjs\|pdf\|svg\|txt\|webmanifest\|xml\)' |
-    parallel -q ::: brotli zopfli :::: -
