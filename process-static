@@ -5,13 +5,8 @@ shopt -s dotglob extglob globstar
 
 npm ci --ignore-scripts
 
-<<<<<<< HEAD
 pip install --require-hashes --only-binary :all: -r requirements.txt
 python3 -m venv --clear venv
-=======
-mkdir website
-python -m venv website
->>>>>>> 4ed8544c6c47c9266f22b28e4b542f0f953c8f7b
 source venv/bin/activate
 
 if [[ $# -eq 1 ]]; then
