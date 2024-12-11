@@ -23,3 +23,5 @@ jobs:
 
     - name: process static
       run: ./process-static
+
+      
